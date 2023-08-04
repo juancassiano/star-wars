@@ -19,7 +19,7 @@ import com.example.starwarsplanetapi.domain.services.PlanetService;
 
 @RestController
 @RequestMapping("/planets")
-public class PlannetController {
+public class PlanetController {
 
   @Autowired
   private PlanetService planetService;
