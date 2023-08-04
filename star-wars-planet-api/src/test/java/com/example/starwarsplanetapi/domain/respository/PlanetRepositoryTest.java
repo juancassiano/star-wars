@@ -31,5 +31,15 @@ public class PlanetRepositoryTest {
     assertThat(sut.getTerrain()).isEqualTo(PLANET.getTerrain());
 
   }
+
+  @Test
+  public void createPlanet_WithInvalidData_ThrowsException(){
+    Planet emptyPlanet = new Planet();
+    Planet invalidPlanet = new Planet("","","");
+
+    assertThatThrownBy(() -> planetRepository.save(emptyPlanet));
+    assertThatThrownBy(() ->planetRepository.save(invalidPlanet));
+
+  }
   
 }
