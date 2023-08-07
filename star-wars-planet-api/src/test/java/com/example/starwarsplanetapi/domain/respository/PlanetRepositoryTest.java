@@ -2,6 +2,9 @@ package com.example.starwarsplanetapi.domain.respository;
 
 import static org.assertj.core.api.Assertions.*;
 
+import java.util.Optional;
+
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -18,6 +21,11 @@ public class PlanetRepositoryTest {
 
   @Autowired
   private TestEntityManager testEntityManager;
+
+  @AfterEach
+  public void afterEach(){
+    PLANET.setId(null);
+  }
 
   @Test
   public void createPlanet_WithValidData_ReturnsPlanet(){
@@ -50,5 +58,21 @@ public class PlanetRepositoryTest {
 
     assertThatThrownBy(() -> planetRepository.save(planet)).isInstanceOf(RuntimeException.class);
 
+  }
+
+  @Test
+  public void getPlanet_ByExistingId_ReturnsPlanet(){
+    Planet planet = testEntityManager.persistAndFlush(PLANET);
+    Optional<Planet> planetOptional = planetRepository.findById(planet.getId());
+
+    assertThat(planetOptional).isNotEmpty();
+    assertThat(planetOptional.get()).isEqualTo(planet);
+  }
+
+  @Test
+  public void getPlanet_ByUnexistingId_ReturnsEmpty(){
+    Optional<Planet> planetOptional = planetRepository.findById(1L);
+
+    assertThat(planetOptional).isEmpty();
   }
 }

@@ -33,13 +33,13 @@ public class PlanetController {
     return ResponseEntity.status(HttpStatus.CREATED).body(planetCreated);
   }
 
-  @GetMapping("/${id}")
+  @GetMapping("/{id}")
   public ResponseEntity<Planet> get(@PathVariable Long id){
     return planetService.get(id).map(planet -> ResponseEntity.ok(planet))
     .orElseGet(() -> ResponseEntity.notFound().build());
   }
 
-    @GetMapping("/name/${name}")
+    @GetMapping("/name/{name}")
   public ResponseEntity<Planet> get(@PathVariable String name){
     return planetService.getByName(name).map(planet -> ResponseEntity.ok(planet))
     .orElseGet(() -> ResponseEntity.notFound().build());
@@ -52,7 +52,7 @@ public class PlanetController {
     return ResponseEntity.ok(planets);
   }
 
-    @DeleteMapping("/${id}")
+    @DeleteMapping("/{id}")
   public ResponseEntity<Void> delete(@PathVariable Long id){
     planetService.remover(id);
     return ResponseEntity.noContent().build();
