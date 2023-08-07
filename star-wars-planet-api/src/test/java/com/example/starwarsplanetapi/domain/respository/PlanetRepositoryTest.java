@@ -2,6 +2,7 @@ package com.example.starwarsplanetapi.domain.respository;
 
 import static org.assertj.core.api.Assertions.*;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.AfterEach;
@@ -9,10 +10,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.data.domain.Example;
+import org.springframework.test.context.jdbc.Sql;
 
 import com.example.starwarsplanetapi.domain.model.Planet;
+import com.example.starwarsplanetapi.domain.services.QueryBuilder;
 
 import static com.example.starwarsplanetapi.domain.common.PlanetConstants.PLANET;
+import static com.example.starwarsplanetapi.domain.common.PlanetConstants.TATOOINE;;
+
 
 @DataJpaTest
 public class PlanetRepositoryTest {
@@ -90,5 +96,31 @@ public class PlanetRepositoryTest {
     Optional<Planet> planetOptional = planetRepository.findByName("name");
 
     assertThat(planetOptional).isEmpty();
+  }
+
+  @Sql(scripts = "/import_planets.sql")
+  @Test
+  public void listPlanets_ReturnsFilteredPlanets(){
+    Example<Planet> queryWithoutFilters = QueryBuilder.makeQuery(new Planet());
+    Example<Planet> queryWithFilters = QueryBuilder.makeQuery(new Planet(TATOOINE.getClimate(), TATOOINE.getTerrain()));
+
+    List<Planet> responseWithoutFilters = planetRepository.findAll(queryWithoutFilters);
+    List<Planet> responseWithFilters = planetRepository.findAll(queryWithFilters);
+
+    assertThat(responseWithoutFilters).isNotEmpty();
+    assertThat(responseWithoutFilters).hasSize(3);
+
+    assertThat(responseWithFilters).hasSize(1);
+    assertThat(responseWithFilters.get(0)).isEqualTo(TATOOINE);
+  }
+
+  @Test
+  public void listPlanets_ReturnsNoPlanets(){
+    Example<Planet> query = QueryBuilder.makeQuery(new Planet());
+
+    List<Planet> response = planetRepository.findAll(query);
+
+    assertThat(response).isEmpty();
+
   }
 }

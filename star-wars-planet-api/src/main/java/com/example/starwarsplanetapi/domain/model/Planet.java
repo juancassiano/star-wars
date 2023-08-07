@@ -7,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
@@ -42,6 +41,14 @@ public class Planet {
     this.climate = climate;
     this.terrain = terrain;
   }
+
+  public Planet(Long id, String name, String climate, String terrain) {
+    this.id = id;
+    this.name = name;
+    this.climate = climate;
+    this.terrain = terrain;
+  }
+
   public Long getId() {
     return id;
   }
