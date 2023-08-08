@@ -7,7 +7,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import com.example.starwarsplanetapi.domain.model.Planet;
-import com.example.starwarsplanetapi.domain.respository.PlanetRepository;
+import com.example.starwarsplanetapi.domain.repository.PlanetRepository;
 
 @Service
 public class PlanetService {

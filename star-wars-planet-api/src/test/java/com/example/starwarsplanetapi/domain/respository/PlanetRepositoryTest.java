@@ -15,6 +15,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.test.context.jdbc.Sql;
 
 import com.example.starwarsplanetapi.domain.model.Planet;
+import com.example.starwarsplanetapi.domain.repository.PlanetRepository;
 import com.example.starwarsplanetapi.domain.services.QueryBuilder;
 
 import static com.example.starwarsplanetapi.domain.common.PlanetConstants.PLANET;

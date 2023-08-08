@@ -11,7 +11,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Example;
 
 import com.example.starwarsplanetapi.domain.model.Planet;
-import com.example.starwarsplanetapi.domain.respository.PlanetRepository;
+import com.example.starwarsplanetapi.domain.repository.PlanetRepository;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
