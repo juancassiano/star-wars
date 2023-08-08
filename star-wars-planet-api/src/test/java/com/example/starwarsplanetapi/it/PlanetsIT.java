@@ -1,7 +1,6 @@
 package com.example.starwarsplanetapi.it;
 
 import static com.example.starwarsplanetapi.domain.common.PlanetConstants.PLANET;
-import static com.example.starwarsplanetapi.domain.common.PlanetConstants.PLANETS;
 import static com.example.starwarsplanetapi.domain.common.PlanetConstants.TATOOINE;
 import static org.assertj.core.api.Assertions.*;
 import org.springframework.beans.factory.annotation.Autowired;
