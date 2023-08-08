@@ -1,6 +1,7 @@
 package com.example.starwarsplanetapi.it;
 
 import static com.example.starwarsplanetapi.domain.common.PlanetConstants.PLANET;
+import static com.example.starwarsplanetapi.domain.common.PlanetConstants.TATOOINE;
 import static org.assertj.core.api.Assertions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +19,7 @@ import org.junit.jupiter.api.Test;
 
 @ActiveProfiles("it")
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@Sql(scripts = { "/import_planets.sql"}, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(scripts = { "/remove_planets.sql"}, executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
 public class PlanetsIT {
 
@@ -33,8 +35,14 @@ public class PlanetsIT {
     assertThat(sut.getBody().getName()).isEqualTo(PLANET.getName());
     assertThat(sut.getBody().getClimate()).isEqualTo(PLANET.getClimate());
     assertThat(sut.getBody().getTerrain()).isEqualTo(PLANET.getTerrain());
+  }
 
+  @Test
+  public void getPlanet_ReturnsPlanet(){
+    ResponseEntity<Planet> sut = testRestTemplate.getForEntity("/planets/1", Planet.class);
 
+    assertThat(sut.getStatusCode()).isEqualTo(HttpStatus.OK);
+    assertThat(sut.getBody()).isEqualTo(TATOOINE);
   }
 
 }
