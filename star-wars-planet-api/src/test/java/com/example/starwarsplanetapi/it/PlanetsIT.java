@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 
 @ActiveProfiles("it")
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@Sql(scripts = { "/remove.sql"}, executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
+@Sql(scripts = { "/remove_planets.sql"}, executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
 public class PlanetsIT {
 
   @Autowired
